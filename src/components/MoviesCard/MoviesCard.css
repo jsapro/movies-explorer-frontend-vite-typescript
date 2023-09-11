@@ -55,12 +55,12 @@
 }
 
 .movies-card__btn_type_active {
-  background-image: url('../../images/saved-btn.svg');
+  background-image: url('../../assets/images/saved-btn.svg');
   width: 21px;
 }
 
 .movies-card__btn_type_collection {
-  background-image: url('../../images/collection-btn.svg');
+  background-image: url('../../assets/images/collection-btn.svg');
   width: 21px;
 }
 

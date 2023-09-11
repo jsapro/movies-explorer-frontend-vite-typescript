@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './AboutMe.css';
-import photo from '../../../images/foto.webp';
+import photo from '../../../assets/images/foto.webp';
 
 const AboutMe = () => {
   return (
