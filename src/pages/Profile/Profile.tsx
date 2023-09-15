@@ -17,7 +17,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
     handleSignOut();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent <HTMLInputElement>) => {
     e.preventDefault();
     const name = values.name;
     const email = values.email;
@@ -25,16 +25,16 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
       .then(() => {
         setSuccessMessage('Успешное обновление профиля');
       })
-      .catch((err) => {
+      .catch(() => {
         setErrorMessage('Неверно введены данные. Попробуйте ещё раз');
       });
   };
 
-  // useEffect(() => {
-  //   if (values.email === currentUser.email && values.name === currentUser.name) {
-  //     return setIsValid(false);
-  //   }
-  // }, [values, currentUser]);
+  useEffect(() => {
+    if (currentUser !== null && values.email === currentUser.email && values.name === currentUser.name) {
+      return setIsValid(false);
+    }
+  }, [values, currentUser]);
 
   useEffect(() => {
     setErrorMessage('');
@@ -44,11 +44,11 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
     setIsReadyToSave(true);
   };
 
-  // useEffect(() => {
-  //   setValues((prevState) => {
-  //     return { ...prevState, name: currentUser.name, email: currentUser.email };
-  //   });
-  // }, [currentUser]);
+  useEffect(() => {
+    setValues((prevState: object) => {
+      return { ...prevState, name: currentUser!.name, email: currentUser!.email };
+    });
+  }, [currentUser]);
 
   const handleFocus = () => {
     setSuccessMessage('');
@@ -59,7 +59,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
       <Header isLoggedIn={isLoggedIn} />
 
       <main className='profile'>
-        {/* <h1 className='profile__title'>Привет, {currentUser.name}!</h1> */}
+        <h1 className='profile__title'>Привет, {currentUser!.name}!</h1>
         <form className='profile__form' name='profile' onSubmit={handleSubmit} noValidate>
           <label className='profile__label'>
             <span className='profile__input-description'>Имя</span>
@@ -67,8 +67,8 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
               className='profile__input'
               type='text'
               name='name'
-              minLength='2'
-              maxLength='30'
+              minLength={2}
+              maxLength={30}
               required
               onChange={handleChange}
               value={values.name || ''}
@@ -82,7 +82,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => 
               className='profile__input'
               type='email'
               name='email'
-              minLength='3'
+              minLength={3}
               required
               onChange={handleChange}
               value={values.email || ''}

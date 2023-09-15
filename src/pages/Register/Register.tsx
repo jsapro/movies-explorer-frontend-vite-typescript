@@ -5,19 +5,20 @@ import AuthInput from '../../components/ui/AuthInput/AuthInput';
 import AuthSubmit from '../../components/ui/AuthSubmit/AuthSubmit';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { EMAIL_REGEX, EMAIL_TITLE_TEXT } from '../../utils/constants';
+import { RegisterProps } from './types';
 
-const Register = ({ onRegister, isLocked }) => {
+const Register = ({ onRegister, isLocked }: RegisterProps) => {
   const [serverResponseError, setServerResponseError] = useState('');
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onRegister(values.name, values.email, values.password).catch((err) => {
       setServerResponseError(err.message);
     });
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setServerResponseError('');
     handleChange(e);
   };
@@ -36,7 +37,7 @@ const Register = ({ onRegister, isLocked }) => {
           <AuthInput
             inputDescription='Имя'
             name='name'
-            minLength='2'
+            minLength={2}
             type='text'
             handleChange={handleChangeInput}
             inputError={errors.name}
@@ -55,7 +56,7 @@ const Register = ({ onRegister, isLocked }) => {
           <AuthInput
             inputDescription='Пароль'
             name='password'
-            minLength='8'
+            minLength={8}
             type='password'
             handleChange={handleChangeInput}
             inputError={errors.password}

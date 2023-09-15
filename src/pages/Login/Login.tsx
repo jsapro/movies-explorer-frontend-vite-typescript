@@ -5,19 +5,20 @@ import AuthSubmit from '../../components/ui/AuthSubmit/AuthSubmit';
 import Logo from '../../components/ui/Logo/Logo';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { EMAIL_REGEX, EMAIL_TITLE_TEXT } from '../../utils/constants';
+import type { LoginProps } from './types';
 
-const Login = ({ handleUserLogin, isLocked }) => {
+const Login = ({ handleUserLogin, isLocked }: LoginProps) => {
   const [serverResponseError, setServerResponseError] = useState('');
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    handleUserLogin(values.email, values.password).catch((err) => {
+    handleUserLogin(values.email, values.password).catch((err: Error) => {
       setServerResponseError(err.message);
     });
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setServerResponseError('');
     handleChange(e);
   };

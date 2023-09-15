@@ -1,9 +1,10 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navigation.css';
+import { HeaderProps } from '../ui/Header/types';
 // import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const Navigation = ({ isLoggedIn }) => {
+const Navigation = ({ isLoggedIn }:HeaderProps) => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth <= 768);
   const [width, setWidth] = useState(window.innerWidth);

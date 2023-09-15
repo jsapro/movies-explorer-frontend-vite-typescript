@@ -1,4 +1,5 @@
 import './AuthInput.css';
+import { AuthInputProps } from './types';
 
 const AuthInput = ({
   inputDescription,
@@ -11,7 +12,7 @@ const AuthInput = ({
   value,
   title,
   emailRegex,
-}) => {
+}: AuthInputProps) => {
   return (
     <label className='auth-input'>
       <span className='auth-input__name'>{inputDescription}</span>
@@ -19,8 +20,8 @@ const AuthInput = ({
         className='auth-input__input'
         type={type}
         name={name}
-        minLength={minLength || null}
-        maxLength={maxLength || null}
+        minLength={minLength}
+        maxLength={maxLength}
         value={value || ''}
         required
         onChange={handleChange}

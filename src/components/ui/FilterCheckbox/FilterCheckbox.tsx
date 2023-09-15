@@ -1,7 +1,7 @@
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ onCheck, isShortMovies }) => {
-  const handleCheck = (e) => {
+  const handleCheck = (e: any) => {
     onCheck(e);
   };
 

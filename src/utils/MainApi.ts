@@ -28,7 +28,9 @@ class MainApi {
       },
       ...options,
     };
-    return fetch(`${this._baseUrl}/${endPoint}`, params).then(this._checkResponse);
+    return fetch(`${this._baseUrl}/${endPoint}`, params).then(
+      this._checkResponse
+    );
   }
 
   register(name: string, email: string, password: string) {
@@ -127,37 +129,80 @@ class MainApi {
 
 export default MainApi;
 
-type Test = Partial<ImageType>
+// type Test = Partial<BitfilmImageType>;
 
-type ImageType = {
-  id: number;
-  name: string;
+export type BitfilmImageType = {
   alternativeText: string;
   caption: string;
-  width: number;
+  created_at: string;
+  ext: string;
+  formats: {
+    small: {
+      ext: string;
+      hash: string;
+      height: number;
+      mime: string;
+      path: null;
+      size: number;
+      url: string;
+      width: number;
+    };
+    thumbnail: {
+      ext: string;
+      hash: string;
+      height: number;
+      mime: string;
+      path: null;
+      size: number;
+      url: string;
+      width: number;
+    };
+  };
+  hash: string;
   height: number;
-  formats: { thumbnail: { url: string } };
+  id: number;
+  mime: string;
+  name: string;
+  previewUrl: string;
+  provider: string;
+  provider_metadata: null;
+  size: number;
+  updated_at: string;
   url: string;
+  width: number;
 };
 
-export type MovieType = {
-  id: number;
+export type BitfilmMovieType = {
   country: string;
   created_at: string;
   description: string;
   director: string;
   duration: number;
-  image: ImageType;
+  id: number;
+  image: BitfilmImageType;
   nameEN: string;
   nameRU: string;
   trailerLink: string;
   updated_at: string;
   year: string;
-  thumbnail: string;
+  thumbnail?: string;
+  _id?: string;
 };
 
-export type SavedMovieType = Omit<MovieType, 'image'> & {
+export type SavedMovieType = Omit<BitfilmMovieType, 'image'> & {
   image: string;
-  owner: any;
-  movieId: number;
+  thumbnail: string;
+  _id: string;
+  owner?: string;
+  movieId?: number;
+  ddd: Test;
 };
+
+enum Test {
+  aaa = 'default',
+  bbb = 'primary',
+}
+
+Object.values(Test)[0];
+
+Test.bbb;

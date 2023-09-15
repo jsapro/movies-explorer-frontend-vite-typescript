@@ -13,7 +13,7 @@ const MoviesCardList = ({
   isHideButton,
 }) => {
   const location = useLocation();
-  const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString'));
+  const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString') || '');
 
   const getSearchErrorText = () => {
     if (location.pathname === '/movies' && serverResponceError !== '') {
@@ -57,7 +57,7 @@ const MoviesCardList = ({
         <p className='search-error-text'>{getSearchErrorText()}</p>
       ) : null}
       <ul className='movies-card-list'>
-        {filteredMoviesArray.map((movie, i) => {
+        {filteredMoviesArray.map((movie: any) => {
           return (
             <MoviesCard
               key={movie.id}

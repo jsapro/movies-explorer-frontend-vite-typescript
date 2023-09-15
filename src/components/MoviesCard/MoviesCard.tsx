@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Preloader from '../ui/Preloader/Preloader';
 
-const MoviesCard = ({ movie, onSaveMovie, onDeleteMovie }) => {
+const MoviesCard: React.FC<{}> = ({ movie, onSaveMovie, onDeleteMovie }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
@@ -39,7 +39,7 @@ const MoviesCard = ({ movie, onSaveMovie, onDeleteMovie }) => {
     return 'movies-card__btn_type_normal';
   };
 
-  const handleImageLoading = (e) => {
+  const handleImageLoading = () => {
     setIsLoading(false);
   };
 

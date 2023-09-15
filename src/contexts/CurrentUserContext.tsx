@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-interface CurrentUserContextType {
+export interface CurrentUserContextType {
   email: string;
   name: string;
   __v?: number;

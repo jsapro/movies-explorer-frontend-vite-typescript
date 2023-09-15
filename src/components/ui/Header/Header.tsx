@@ -5,7 +5,7 @@ import { type HeaderProps } from './types';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
   return (
-    <header style={{ border: '1px solid red' }} className='header'>
+    <header className='header'>
       <div className='header__container'>
         <Logo />
         <Navigation isLoggedIn={isLoggedIn} />

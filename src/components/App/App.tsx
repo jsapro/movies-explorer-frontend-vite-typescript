@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Main from '../../pages/Main/Main';
-// import Movies from '../../pages/Movies/Movies';
-// import SavedMovies from '../../pages/SavedMovies/SavedMovies';
+import Movies from '../../pages/Movies/Movies';
+import SavedMovies from '../../pages/SavedMovies/SavedMovies';
 import Profile from '../../pages/Profile/Profile';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
@@ -14,22 +14,28 @@ import {
   BASIC_MOVIES_URL,
   MAIN_BACKEND_URL,
 } from '../../utils/constants';
-import type { MovieType, SavedMovieType } from '../../utils/MainApi';
+import type {
+  BitfilmMovieType,
+  SavedMovieType,
+  BitfilmImageType,
+} from '../../utils/MainApi';
+import type { CurrentUserContextType } from '../../contexts/CurrentUserContext';
 
 import './App.css';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const AppApp = () => {
+const App = () => {
   const moviesApi = new MoviesApi(BEATFILMMOVIES_URL);
   const mainApi = new MainApi(MAIN_BACKEND_URL);
   const [combinedMoviesArray, setCombinedMoviesArray] = useState<
-    [] | SavedMovieType
+    [] | SavedMovieType[]
   >([]);
   const [currentUser, setCurrentUser] = useState({});
-  // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwt'));
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [serverResponceError, setServerResponceError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwt'));
+  const [serverResponceError, setServerResponceError] = useState<string | ''>(
+    ''
+  );
   const [isLocked, setIsLocked] = useState(false);
   const navigate = useNavigate();
   const ref = useRef<null | number>(null);
@@ -63,34 +69,39 @@ const AppApp = () => {
     }
     return Promise.all([moviesApi.getInitialMovies(), mainApi.getMovies()])
       .then(([initialMovies, savedMovies]) => {
-        const combinedMoviesArray = (initialMovies as MovieType[]).map(
-          (initialMovie) => {
-            const savedMovie = savedMovies.data.find(
-              (savedMovieItem: SavedMovieType) => {
-                return savedMovieItem.movieId === initialMovie.id;
-              }
-            );
-
-            initialMovie.thumbnail =
-              BASIC_MOVIES_URL + initialMovie.image.formats.thumbnail.url;
-            initialMovie.image = BASIC_MOVIES_URL + initialMovie.image.url;
-
-            if (savedMovie !== undefined) {
-              initialMovie._id = savedMovie._id;
-            } else {
-              initialMovie._id = '';
+        const combinedMoviesArray = (
+          initialMovies as (Omit<BitfilmMovieType, 'image'> & {
+            image: string | BitfilmImageType;
+          })[]
+        ).map((initialMovie) => {
+          const savedMovie = savedMovies.data.find(
+            (savedMovieItem: SavedMovieType) => {
+              return savedMovieItem.movieId === initialMovie.id;
             }
+          );
 
-            return initialMovie;
+          initialMovie.thumbnail =
+            BASIC_MOVIES_URL + typeof initialMovie.image === 'object' &&
+            'formats' in initialMovie?.image
+              ? initialMovie.image.formats.thumbnail.url
+              : '';
+          initialMovie.image = BASIC_MOVIES_URL + initialMovie.image.url;
+
+          if (savedMovie !== undefined) {
+            initialMovie._id = savedMovie._id;
+          } else {
+            initialMovie._id = '';
           }
-        );
+
+          return initialMovie;
+        });
         localStorage.setItem(
           'combinedMoviesArray',
           JSON.stringify(combinedMoviesArray)
         );
         setServerResponceError('');
         setCombinedMoviesArray(
-          combinedMoviesArray as unknown as SavedMovieType
+          combinedMoviesArray as unknown as SavedMovieType[]
         );
         return combinedMoviesArray;
       })
@@ -109,12 +120,16 @@ const AppApp = () => {
     navigate('/', { replace: true });
   };
 
-  const handleUserRegister = (name, email, password): Promise<any> => {
+  const handleUserRegister = (
+    name: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
     setIsLocked(true);
     return (
       mainApi
         .register(name, email, password)
-        .then((data) => {
+        .then(() => {
           handleUserLogin(email, password);
         })
         // .catch((err) => console.log(err))
@@ -122,12 +137,12 @@ const AppApp = () => {
     );
   };
 
-  const handleUserLogin = (email, password) => {
+  const handleUserLogin = (email: string, password: string) => {
     setIsLocked(true);
     return (
       mainApi
         .login(email, password)
-        .then((data) => {
+        .then(() => {
           setIsLoggedIn(true);
           navigate('/movies', { replace: true });
         })
@@ -136,7 +151,7 @@ const AppApp = () => {
     );
   };
 
-  const handleUpdateUserInfo = (name, email) => {
+  const handleUpdateUserInfo = (name: string, email: string) => {
     setIsLocked(true);
     return (
       mainApi
@@ -149,7 +164,7 @@ const AppApp = () => {
     );
   };
 
-  const handleSaveMovie = (movie) => {
+  const handleSaveMovie = (movie: SavedMovieType) => {
     return mainApi
       .saveMovie(movie)
       .then((savedMovie) => {
@@ -170,7 +185,7 @@ const AppApp = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleDeleteMovie = (id) => {
+  const handleDeleteMovie = (id: string) => {
     return mainApi
       .deleteMovie(id)
       .then((deletedMovie) => {
@@ -190,7 +205,7 @@ const AppApp = () => {
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser as CurrentUserContextType}>
       <div className='page'>
         <Routes>
           <Route path='/' element={<Main isLoggedIn={isLoggedIn} />} />
@@ -215,7 +230,7 @@ const AppApp = () => {
             }
           />
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-            {/* <Route
+            <Route
               path='/movies'
               element={
                 <Movies
@@ -228,8 +243,8 @@ const AppApp = () => {
                   variant={'secondary'}
                 />
               }
-            /> */}
-            {/* <Route
+            />
+            <Route
               path='/saved-movies'
               element={
                 <SavedMovies
@@ -240,7 +255,7 @@ const AppApp = () => {
                   isLoggedIn={isLoggedIn}
                 />
               }
-            /> */}
+            />
             <Route
               path='/profile'
               element={
@@ -260,10 +275,13 @@ const AppApp = () => {
   );
 };
 
-export default AppApp;
+export default App;
 
-type UserType = {
-  email: string;
-  password: string;
-  name: string;
-};
+enum Test {
+  aaa = 'default',
+  bbb = 'primary',
+}
+
+Object.values(Test)[0]
+
+Test.bbb
