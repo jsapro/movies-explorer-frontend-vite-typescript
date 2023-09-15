@@ -13,7 +13,7 @@ const MoviesCardList = ({
   isHideButton,
 }) => {
   const location = useLocation();
-  const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString') || '');
+  const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString')) || '';
 
   const getSearchErrorText = () => {
     if (location.pathname === '/movies' && serverResponceError !== '') {
