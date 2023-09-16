@@ -48,7 +48,7 @@ const Login = ({ handleUserLogin, isLocked }: LoginProps) => {
           <AuthInput
             inputDescription='Пароль'
             name='password'
-            minLength='8'
+            minLength={8}
             type='password'
             handleChange={handleChangeInput}
             inputError={errors.password}
