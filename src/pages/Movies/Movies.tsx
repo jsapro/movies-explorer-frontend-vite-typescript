@@ -4,7 +4,7 @@ import Header from '../../components/ui/Header/Header';
 import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
-import { filter } from '../../utils/constants';
+import { filterMovies } from '../../utils/constants';
 import type MoviesProps from './types';
 import type { SavedMovieType } from '../../utils/types';
 
@@ -34,7 +34,7 @@ const Movies = ({
         setCombinedMoviesArray(combinedMoviesArray);
         const search = JSON.parse(localStorage.getItem('lastSearchString'));
         const isShort = JSON.parse(localStorage.getItem('isShortMovies'));
-        const lastSearchResultArray = filter(
+        const lastSearchResultArray = filterMovies(
           combinedMoviesArray,
           search,
           isShort
@@ -52,7 +52,7 @@ const Movies = ({
     onSearch()
       .then((combinedMoviesArray) => {
         setCombinedMoviesArray(combinedMoviesArray);
-        const filteredMoviesArray = filter(
+        const filteredMoviesArray = filterMovies(
           combinedMoviesArray,
           searchString,
           isShortMovies
@@ -121,7 +121,12 @@ const Movies = ({
           serverResponceError={serverResponceError}
           onSaveMovie={onSaveMovie}
           onDeleteMovie={onDeleteMovie}
-          filteredMoviesArray={filteredMoviesArray.slice(0, numberToRender) as Array<SavedMovieType>}
+          filteredMoviesArray={
+            filteredMoviesArray.slice(
+              0,
+              numberToRender
+            ) as Array<SavedMovieType>
+          }
           onClick={handleMoreButton}
           isHideButton={isHideButton}
         />

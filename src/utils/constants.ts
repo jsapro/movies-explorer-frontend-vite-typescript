@@ -1,11 +1,16 @@
 import type { SavedMovieType } from './types';
 
-export const BEATFILMMOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
+export const BEATFILMMOVIES_URL =
+  'https://api.nomoreparties.co/beatfilm-movies';
 export const BASIC_MOVIES_URL = 'https://api.nomoreparties.co';
 // export const MAIN_BACKEND_URL = 'http://localhost:3000';
 export const MAIN_BACKEND_URL = 'https://api.viewport-jsapro.nomoreparties.co';
 
-export const filter = (movies: SavedMovieType[], search: string, isShort: boolean) => {
+export const filterMovies = (
+  movies: SavedMovieType[],
+  search: string,
+  isShort: boolean
+) => {
   return movies.filter((movie) => {
     const matchedSearch =
       movie.nameRU.trim().toLowerCase().includes(search.trim().toLowerCase()) ||
@@ -15,6 +20,7 @@ export const filter = (movies: SavedMovieType[], search: string, isShort: boolea
   });
 };
 
-export const EMAIL_REGEX = '^[a-zA-Z0-9]+[a-zA-Z0-9\\-_.]+@[a-z]+\\.[a-z]{2,4}$';
+export const EMAIL_REGEX =
+  '^[a-zA-Z0-9]+[a-zA-Z0-9\\-_.]+@[a-z]+\\.[a-z]{2,4}$';
 export const EMAIL_TITLE_TEXT =
   'Электронный адрес должен состоять из имени пользователя, знака @ и доменного имени. Имена пользователей должны начинаться с буквы, могут содержать: буквы (a-z, A-Z), цифры (0-9). Пример: test01@test.ru';

@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Header from '../../components/ui/Header/Header';
 import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
-import { filter } from '../../utils/constants';
+import { filterMovies } from '../../utils/constants';
 import type { SavedMovieType } from '../../utils/types';
 import type SavedMoviesProps from './types';
 
@@ -31,19 +31,22 @@ const SavedMovies = ({
     handleSubmitSearch(searchString, isShortMovies);
   }, [isShortMovies, combinedMoviesArray]);
 
-  const handleSubmitSearch = (searchString: string, isShortMovies: boolean): SavedMovieType => {
-      setSearchString(searchString);
-      const onlySavedMoviesArray = combinedMoviesArray.filter(
-        (movie: SavedMovieType) => movie._id !== ''
-      );
-      const filteredMoviesArray = filter(
-        onlySavedMoviesArray,
-        searchString,
-        isShortMovies
-      );
-      setFilteredMoviesArray(filteredMoviesArray);
-      return filteredMoviesArray;
-    };
+  const handleSubmitSearch = (
+    searchString: string,
+    isShortMovies: boolean
+  ): SavedMovieType => {
+    setSearchString(searchString);
+    const onlySavedMoviesArray = combinedMoviesArray.filter(
+      (movie: SavedMovieType) => movie._id !== ''
+    );
+    const filteredMoviesArray = filterMovies(
+      onlySavedMoviesArray,
+      searchString,
+      isShortMovies
+    );
+    setFilteredMoviesArray(filteredMoviesArray);
+    return filteredMoviesArray;
+  };
 
   const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
     setIsShortMovies(e.target.checked);
