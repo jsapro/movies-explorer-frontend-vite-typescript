@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import './AuthSubmit.css';
+import type AuthSubmitProps from './types';
 
-const AuthSubmit = ({ type, serverResponseError, isValid, isLocked }) => {
+const AuthSubmit = ({ type, serverResponseError, isValid, isLocked }: AuthSubmitProps) => {
   const location = useLocation();
 
   return (

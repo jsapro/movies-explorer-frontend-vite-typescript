@@ -46,7 +46,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileP
   };
 
   useEffect(() => {
-    setValues((prevState: object) => {
+    setValues((prevState) => {
       return { ...prevState, name: currentUser!.name, email: currentUser!.email };
     });
   }, [currentUser]);
