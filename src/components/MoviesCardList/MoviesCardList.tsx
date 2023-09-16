@@ -15,7 +15,10 @@ const MoviesCardList = ({
   isHideButton,
 }: MoviesCardListProps) => {
   const location = useLocation();
-  const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString')) || '';
+  const lastSearchStringStorage = localStorage.getItem('lastSearchString');
+  const lastSearchString = lastSearchStringStorage
+    ? JSON.parse(lastSearchStringStorage)
+    : null;
 
   const getSearchErrorText = () => {
     if (location.pathname === '/movies' && serverResponceError !== '') {
@@ -46,7 +49,10 @@ const MoviesCardList = ({
       return 'Пока нет сохранённых короткометражных фильмов';
     }
 
-    if (location.pathname === '/saved-movies' && filteredMoviesArray.length === 0) {
+    if (
+      location.pathname === '/saved-movies' &&
+      filteredMoviesArray.length === 0
+    ) {
       return 'Пока нет сохранённых фильмов';
     }
 
@@ -71,9 +77,15 @@ const MoviesCardList = ({
         })}
       </ul>
 
-      {location.pathname === '/movies' && filteredMoviesArray.length !== 0 && !isHideButton ? (
+      {location.pathname === '/movies' &&
+      filteredMoviesArray.length !== 0 &&
+      !isHideButton ? (
         <div className='load-button'>
-          <button className='load-button__more-btn' type='button' onClick={onClick}>
+          <button
+            className='load-button__more-btn'
+            type='button'
+            onClick={onClick}
+          >
             Ещё
           </button>
         </div>
