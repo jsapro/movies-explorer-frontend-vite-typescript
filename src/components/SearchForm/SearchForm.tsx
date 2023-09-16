@@ -30,7 +30,7 @@ const SearchForm = ({ onSearch, onCheck, isShortMovies, searchString }: SearchFo
         <div className='search-form__container'>
           <input
             onChange={handleChange}
-            value={values.searchInput}
+            value={values.searchInput || ''}
             className='search-form__input'
             placeholder='Фильм'
             type='text'
