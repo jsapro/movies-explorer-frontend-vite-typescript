@@ -46,7 +46,7 @@ const Movies = ({
       .catch((err) => console.log(err));
   }, []);
 
-  const handleSubmitSearch = (searchString, isShortMovies) => {
+  const handleSubmitSearch = (searchString: string, isShortMovies: boolean) => {
     setSearchString(searchString);
     localStorage.setItem('lastSearchString', JSON.stringify(searchString));
     onSearch()
@@ -109,7 +109,7 @@ const Movies = ({
 
   return (
     <>
-      <Header styled={{ border: '1px solid red' }} isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} />
       <main>
         <SearchForm
           onSearch={handleSubmitSearch}
