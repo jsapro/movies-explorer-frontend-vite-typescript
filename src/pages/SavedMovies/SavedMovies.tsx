@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import './SavedMovies.css';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Header from '../../components/ui/Header/Header';
