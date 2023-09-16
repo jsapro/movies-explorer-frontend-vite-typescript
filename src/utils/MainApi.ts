@@ -1,7 +1,10 @@
+import { SavedMovieType } from './types';
+
 class MainApi {
   private _baseUrl: string;
   private _defaultHeaders: { 'Content-Type': string };
   private _authHeaders: { Authorization: string; 'Content-Type': string };
+  
   constructor(baseUrl: string) {
     this._baseUrl = baseUrl;
     this._defaultHeaders = {
@@ -20,7 +23,7 @@ class MainApi {
     return Promise.reject(new Error(`Ошибка: ${res.statusText}`));
   }
 
-  _request(endPoint, options = {}) {
+  _request(endPoint: string, options = {}) {
     const params = {
       headers: {
         'Content-Type-1': 'application/json',
@@ -47,7 +50,7 @@ class MainApi {
     });
   }
 
-  login(email, password) {
+  login(email: string, password: string) {
     return this._request('signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,7 +72,7 @@ class MainApi {
     });
   }
 
-  updateUserInfo(name, email) {
+  updateUserInfo(name: string, email: string) {
     return this._request('users/me/', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -93,7 +96,7 @@ class MainApi {
     });
   }
 
-  saveMovie(movie) {
+  saveMovie(movie: SavedMovieType) {
     return this._request('movies/', {
       method: 'POST',
       headers: {
@@ -116,7 +119,7 @@ class MainApi {
     });
   }
 
-  deleteMovie(id) {
+  deleteMovie(id: string) {
     return this._request(`movies/${id}/`, {
       method: 'DELETE',
       headers: {
