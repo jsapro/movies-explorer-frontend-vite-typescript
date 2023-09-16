@@ -1,7 +1,7 @@
 import { SavedMovieType } from '../../utils/types';
 
 interface SavedMoviesProps {
-  combinedMoviesArray: SavedMovieType;
+  combinedMoviesArray: SavedMovieType[];
   onDeleteMovie: (id: string) => Promise<void>;
   onSearch: () => Promise<void>;
   setCombinedMoviesArray: React.Dispatch<

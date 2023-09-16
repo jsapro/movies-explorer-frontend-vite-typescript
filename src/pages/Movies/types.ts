@@ -1,9 +1,11 @@
 import { SavedMovieType } from '../../utils/types';
 
 interface MoviesProps {
-  onSaveMovie: (movie: SavedMovieType) => void;
+  onSaveMovie: (movie: SavedMovieType) => Promise<void>;
   onDeleteMovie: (id: string) => Promise<void>;
-  setCombinedMoviesArray: React.Dispatch<React.SetStateAction<[] | SavedMovieType[]>>;
+  setCombinedMoviesArray: React.Dispatch<
+    React.SetStateAction<[] | SavedMovieType[]>
+  >;
   onSearch: () => Promise<void>;
   serverResponceError: string;
   isLoggedIn: boolean;

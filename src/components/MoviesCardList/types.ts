@@ -1,7 +1,7 @@
 import { SavedMovieType } from '../../utils/types'
 
 interface MoviesCardListProps {
-    onSaveMovie?: (movie: SavedMovieType) => void,
+    onSaveMovie?: (movie: SavedMovieType) => Promise<void>
     onDeleteMovie: (id: string) => Promise<void>,
     filteredMoviesArray: Array<SavedMovieType> ,
     isShortMovies?: boolean,

@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoviesCardListProps from './types';
+import { SavedMovieType } from '../../utils/types';
 
 const MoviesCardList = ({
   onSaveMovie,
@@ -58,7 +59,7 @@ const MoviesCardList = ({
         <p className='search-error-text'>{getSearchErrorText()}</p>
       ) : null}
       <ul className='movies-card-list'>
-        {filteredMoviesArray.map((movie: any) => {
+        {filteredMoviesArray.map((movie: SavedMovieType) => {
           return (
             <MoviesCard
               key={movie.id}
