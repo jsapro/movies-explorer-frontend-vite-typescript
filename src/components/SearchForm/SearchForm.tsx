@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../ui/FilterCheckbox/FilterCheckbox';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
@@ -7,7 +7,7 @@ import SearchFormProps from './types';
 const SearchForm = ({ onSearch, onCheck, isShortMovies, searchString }: SearchFormProps) => {
   const { values, handleChange, isValid, setValues } = useFormWithValidation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(values.searchInput, isShortMovies);
   };

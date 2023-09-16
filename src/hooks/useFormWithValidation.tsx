@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 const useFormWithValidation = () => {
   const [values, setValues] = useState<
-    Record<'name' | 'email' | 'password', string> | Record<string, never>
+    Record<'name' | 'email' | 'password' | 'searchInput', string> | Record<string, never>
   >({});
   const [errors, setErrors] = useState<
     Record<'name' | 'email' | 'password', string> | Record<string, never>
