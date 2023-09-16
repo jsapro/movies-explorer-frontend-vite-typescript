@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, ChangeEvent } from 'react';
 import './SavedMovies.css';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Header from '../../components/ui/Header/Header';
@@ -32,20 +32,20 @@ const SavedMovies = ({
   }, [isShortMovies, combinedMoviesArray]);
 
   const handleSubmitSearch = (searchString: string, isShortMovies: boolean) => {
-    setSearchString(searchString);
-    const onlySavedMoviesArray = combinedMoviesArray.filter(
-      (movie: SavedMovieType) => movie._id !== ''
-    );
-    const filteredMoviesArray = filter(
-      onlySavedMoviesArray,
-      searchString,
-      isShortMovies
-    );
-    setFilteredMoviesArray(filteredMoviesArray);
-    return filteredMoviesArray;
-  };
+      setSearchString(searchString);
+      const onlySavedMoviesArray = combinedMoviesArray.filter(
+        (movie: SavedMovieType) => movie._id !== ''
+      );
+      const filteredMoviesArray = filter(
+        onlySavedMoviesArray,
+        searchString,
+        isShortMovies
+      );
+      setFilteredMoviesArray(filteredMoviesArray);
+      return filteredMoviesArray;
+    };
 
-  const handleCheckBox = (e) => {
+  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
     setIsShortMovies(e.target.checked);
   };
 
