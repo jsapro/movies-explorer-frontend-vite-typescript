@@ -5,8 +5,8 @@ import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { filter } from '../../utils/constants';
-import MoviesProps from './types';
-import { SavedMovieType } from '../../utils/types';
+import type MoviesProps from './types';
+import type { SavedMovieType } from '../../utils/types';
 
 const Movies = ({
   onSaveMovie,

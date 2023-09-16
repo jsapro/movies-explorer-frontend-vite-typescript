@@ -1,5 +1,5 @@
 import './AuthInput.css';
-import { AuthInputProps } from './types';
+import type { AuthInputProps } from './types';
 
 const AuthInput = ({
   inputDescription,

@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { SavedMovieType } from '../../utils/types';
+import type { SavedMovieType } from '../../utils/types';
 
 interface SearchFormProps {
   onSearch: (searchString: string, isShortMovies: boolean) => SavedMovieType;

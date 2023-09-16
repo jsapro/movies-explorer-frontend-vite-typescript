@@ -5,7 +5,7 @@ import AuthInput from '../../components/ui/AuthInput/AuthInput';
 import AuthSubmit from '../../components/ui/AuthSubmit/AuthSubmit';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 import { EMAIL_REGEX, EMAIL_TITLE_TEXT } from '../../utils/constants';
-import { RegisterProps } from './types';
+import type { RegisterProps } from './types';
 
 const Register = ({ onRegister, isLocked }: RegisterProps) => {
   const [serverResponseError, setServerResponseError] = useState('');

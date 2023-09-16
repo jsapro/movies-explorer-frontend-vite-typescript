@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoviesCardListProps from './types';
-import { SavedMovieType } from '../../utils/types';
+import type { SavedMovieType } from '../../utils/types';
 
 const MoviesCardList = ({
   onSaveMovie,
