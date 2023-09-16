@@ -6,6 +6,7 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { filter } from '../../utils/constants';
 import MoviesProps from './types';
+import { SavedMovieType } from '../../utils/types';
 
 const Movies = ({
   onSaveMovie,
@@ -120,7 +121,7 @@ const Movies = ({
           serverResponceError={serverResponceError}
           onSaveMovie={onSaveMovie}
           onDeleteMovie={onDeleteMovie}
-          filteredMoviesArray={filteredMoviesArray.slice(0, numberToRender)}
+          filteredMoviesArray={filteredMoviesArray.slice(0, numberToRender) as Array<SavedMovieType>}
           onClick={handleMoreButton}
           isHideButton={isHideButton}
         />

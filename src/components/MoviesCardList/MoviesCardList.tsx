@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import MoviesCardListProps from './types';
 
 const MoviesCardList = ({
   onSaveMovie,
@@ -11,7 +12,7 @@ const MoviesCardList = ({
   searchString,
   onClick,
   isHideButton,
-}) => {
+}: MoviesCardListProps) => {
   const location = useLocation();
   const lastSearchString = JSON.parse(localStorage.getItem('lastSearchString')) || '';
 
