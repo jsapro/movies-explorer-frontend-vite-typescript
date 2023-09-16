@@ -31,7 +31,7 @@ const SavedMovies = ({
     handleSubmitSearch(searchString, isShortMovies);
   }, [isShortMovies, combinedMoviesArray]);
 
-  const handleSubmitSearch = (searchString: string, isShortMovies: boolean) => {
+  const handleSubmitSearch = (searchString: string, isShortMovies: boolean): SavedMovieType => {
       setSearchString(searchString);
       const onlySavedMoviesArray = combinedMoviesArray.filter(
         (movie: SavedMovieType) => movie._id !== ''
@@ -57,6 +57,7 @@ const SavedMovies = ({
           onSearch={handleSubmitSearch}
           isShortMovies={isShortMovies}
           onCheck={handleCheckBox}
+          searchString={searchString}
         />
         <MoviesCardList
           isShortMovies={isShortMovies}
