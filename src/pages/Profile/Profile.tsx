@@ -5,8 +5,9 @@ import { useContext, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useEffect } from 'react';
 import { EMAIL_REGEX, EMAIL_TITLE_TEXT } from '../../utils/constants';
+import type ProfileProps from './types';
 
-const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: any) => {
+const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileProps) => {
   const currentUser = useContext(CurrentUserContext);
   const [isReadyToSave, setIsReadyToSave] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
