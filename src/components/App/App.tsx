@@ -76,22 +76,18 @@ const App = () => {
             (savedMovieItem: SavedMovieType) => {
               return savedMovieItem.movieId === initialMovie.id;
             }
-          );
-
-          initialMovie.thumbnail =
-            BASIC_MOVIES_URL + typeof initialMovie.image === 'object' &&
-            'formats' in initialMovie?.image
-              ? initialMovie.image.formats.thumbnail.url
-              : '';
-          initialMovie.image = BASIC_MOVIES_URL + initialMovie.image.url;
-
-          if (savedMovie !== undefined) {
-            initialMovie._id = savedMovie._id;
-          } else {
-            initialMovie._id = '';
-          }
-
-          return initialMovie;
+            );
+            
+            initialMovie.thumbnail = BASIC_MOVIES_URL + initialMovie.image.formats.thumbnail.url;
+            initialMovie.image = BASIC_MOVIES_URL + initialMovie.image.url;
+  
+            if (savedMovie !== undefined) {
+              initialMovie._id = savedMovie._id;
+            } else {
+              initialMovie._id = '';
+            }
+  
+            return initialMovie;
         });
         localStorage.setItem(
           'combinedMoviesArray',
