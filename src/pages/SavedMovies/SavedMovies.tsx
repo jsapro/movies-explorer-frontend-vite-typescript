@@ -6,6 +6,7 @@ import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import { filter } from '../../utils/constants';
 import { SavedMovieType } from '../../utils/types';
+import SavedMoviesProps from './types';
 
 const SavedMovies = ({
   combinedMoviesArray,
@@ -13,7 +14,7 @@ const SavedMovies = ({
   onSearch,
   setCombinedMoviesArray,
   isLoggedIn,
-}) => {
+}: SavedMoviesProps) => {
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [filteredMoviesArray, setFilteredMoviesArray] = useState([]);
   const [searchString, setSearchString] = useState('');
@@ -32,8 +33,14 @@ const SavedMovies = ({
 
   const handleSubmitSearch = (searchString: string, isShortMovies: boolean) => {
     setSearchString(searchString);
-    const onlySavedMoviesArray = combinedMoviesArray.filter((movie: SavedMovieType) => movie._id !== '');
-    const filteredMoviesArray = filter(onlySavedMoviesArray, searchString, isShortMovies);
+    const onlySavedMoviesArray = combinedMoviesArray.filter(
+      (movie: SavedMovieType) => movie._id !== ''
+    );
+    const filteredMoviesArray = filter(
+      onlySavedMoviesArray,
+      searchString,
+      isShortMovies
+    );
     setFilteredMoviesArray(filteredMoviesArray);
     return filteredMoviesArray;
   };
