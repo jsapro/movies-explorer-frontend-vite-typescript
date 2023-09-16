@@ -18,7 +18,7 @@ import type {
   BitfilmMovieType,
   SavedMovieType,
   BitfilmImageType,
-} from '../../utils/MainApi';
+} from '../../utils/types';
 import type { CurrentUserContextType } from '../../contexts/CurrentUserContext';
 
 import './App.css';

@@ -5,7 +5,7 @@ import Header from '../../components/ui/Header/Header';
 import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import { filter } from '../../utils/constants';
-import { SavedMovieType } from '../../utils/MainApi';
+import { SavedMovieType } from '../../utils/types';
 
 const SavedMovies = ({
   combinedMoviesArray,
