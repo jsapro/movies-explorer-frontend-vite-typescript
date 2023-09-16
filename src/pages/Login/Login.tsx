@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import './Login.css';
 import AuthInput from '../../components/ui/AuthInput/AuthInput';
 import AuthSubmit from '../../components/ui/AuthSubmit/AuthSubmit';
@@ -11,14 +11,14 @@ const Login = ({ handleUserLogin, isLocked }: LoginProps) => {
   const [serverResponseError, setServerResponseError] = useState('');
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleUserLogin(values.email, values.password).catch((err: Error) => {
       setServerResponseError(err.message);
     });
   };
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setServerResponseError('');
     handleChange(e);
   };
