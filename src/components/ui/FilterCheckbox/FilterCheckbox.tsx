@@ -1,7 +1,9 @@
+import { ChangeEvent } from 'react';
 import './FilterCheckbox.css';
+import type FilterCheckboxProps from './types';
 
-const FilterCheckbox = ({ onCheck, isShortMovies }) => {
-  const handleCheck = (e: any) => {
+const FilterCheckbox = ({ onCheck, isShortMovies }: FilterCheckboxProps) => {
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     onCheck(e);
   };
 
