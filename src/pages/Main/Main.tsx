@@ -6,8 +6,9 @@ import Techs from '../../components/ui/Techs/Techs';
 import AboutMe from '../../components/ui/AboutMe/AboutMe';
 import Portfolio from '../../components/ui/Portfolio/Portfolio';
 import Footer from '../../components/ui/Footer/Footer';
+import MainProps from './types';
 
-const Main = ({ isLoggedIn }) => {
+const Main = ({ isLoggedIn }: MainProps) => {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
