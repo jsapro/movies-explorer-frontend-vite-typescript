@@ -11,4 +11,9 @@ interface MoviesProps {
   isLoggedIn: boolean;
 }
 
-export default MoviesProps;
+type MoviesConfigType = {
+  numberOnStart: number,
+  numberToAdd: number,
+}
+
+export type {MoviesProps, MoviesConfigType};

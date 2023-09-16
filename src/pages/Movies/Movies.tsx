@@ -5,7 +5,7 @@ import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { filterMovies } from '../../utils/constants';
-import type MoviesProps from './types';
+import type {MoviesProps, MoviesConfigType} from './types';
 import type { SavedMovieType } from '../../utils/types';
 
 const Movies = ({
@@ -75,7 +75,7 @@ const Movies = ({
     setNumberToRender(() => getMoviesConfig().numberOnStart);
   }, []);
 
-  const getMoviesConfig = () => {
+  const getMoviesConfig = (): MoviesConfigType => {
     if (window.innerWidth < 768) {
       return {
         numberOnStart: 5,
@@ -94,6 +94,10 @@ const Movies = ({
         numberToAdd: 3,
       };
     }
+    return {
+      numberOnStart: 8,
+      numberToAdd: 2,
+    }; 
   };
 
   useEffect(() => {
