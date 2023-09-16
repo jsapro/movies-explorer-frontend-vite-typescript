@@ -5,27 +5,16 @@ import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { filter } from '../../utils/constants';
-import { MovieType } from '../../utils/MainApi';
+import MoviesProps from './types';
 
-interface MoviesProps {
-  onSaveMovie: (movie: MovieType) => void;
-  onDeleteMovie: (movie: unknown) => void;
-  setCombinedMoviesArray: (movie: unknown) => void;
-  onSearch: (movie: unknown) => void;
-  serverResponceError: Error;
-  isLoggedIn: boolean;
-  styled?: Record<string, string>;
-  variant: 'primary' | 'secondary';
-}
-
-const Movies: FC<MoviesProps> = ({
+const Movies = ({
   onSaveMovie,
   onDeleteMovie,
   setCombinedMoviesArray,
   onSearch,
   serverResponceError,
   isLoggedIn,
-}) => {
+}: MoviesProps) => {
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [filteredMoviesArray, setFilteredMoviesArray] = useState([]);
   const [searchString, setSearchString] = useState('');

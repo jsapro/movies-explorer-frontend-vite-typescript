@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Main from '../../pages/Main/Main';
 import Movies from '../../pages/Movies/Movies';
@@ -31,15 +31,13 @@ const App = () => {
   const [combinedMoviesArray, setCombinedMoviesArray] = useState<
     [] | SavedMovieType[]
   >([]);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState<CurrentUserContextType | Record<string, never>>({});
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwt'));
   const [serverResponceError, setServerResponceError] = useState<string | ''>(
     ''
   );
   const [isLocked, setIsLocked] = useState(false);
   const navigate = useNavigate();
-  const ref = useRef<null | number>(null);
-  ref.current = 1;
 
   useEffect(() => {
     handleTokenCheck();
@@ -240,7 +238,6 @@ const App = () => {
                   onDeleteMovie={handleDeleteMovie}
                   setCombinedMoviesArray={setCombinedMoviesArray}
                   serverResponceError={serverResponceError}
-                  variant={'secondary'}
                 />
               }
             />

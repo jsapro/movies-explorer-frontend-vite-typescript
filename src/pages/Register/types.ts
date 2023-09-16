@@ -1,7 +1,5 @@
-import { CurrentUserContextType } from '../../contexts/CurrentUserContext';
-
 interface RegisterProps {
-  onRegister: (name: string, email: string, password: string) => Promise<CurrentUserContextType>;
+  onRegister: (name: string, email: string, password: string) => Promise<void>;
   isLocked: boolean;
 }
 

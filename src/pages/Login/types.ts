@@ -1,5 +1,5 @@
 interface LoginProps {
-  handleUserLogin: Promise<{}>;
+  handleUserLogin (email: string, password: string): Promise<void>;
   isLocked: boolean;
 }
 
