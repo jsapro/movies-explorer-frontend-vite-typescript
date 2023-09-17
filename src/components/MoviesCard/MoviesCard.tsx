@@ -27,7 +27,7 @@ const MoviesCard = ({ movie, onSaveMovie, onDeleteMovie }: MoviesCardProps) => {
     if (checkIsMovieSaved()) {
       return onDeleteMovie(movie._id);
     }
-    return onSaveMovie(movie);
+    return onSaveMovie!(movie);
   };
 
   const getBtnClassName = () => {
