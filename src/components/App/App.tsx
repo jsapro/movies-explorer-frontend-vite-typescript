@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Main from '../../pages/Main/Main';
 import Movies from '../../pages/Movies/Movies';
@@ -27,7 +27,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const App = () => {
   const moviesApi = new MoviesApi(BEATFILMMOVIES_URL);
-  const mainApi = new MainApi(MAIN_BACKEND_URL);
+  const mainApi = useMemo(() => new MainApi(MAIN_BACKEND_URL), []);
   const [combinedMoviesArray, setCombinedMoviesArray] = useState<
     [] | SavedMovieType[]
   >([]);
@@ -41,26 +41,26 @@ const App = () => {
   const [isLocked, setIsLocked] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    handleTokenCheck();
-  }, [isLoggedIn]);
-
-  const handleTokenCheck = () => {
+  const handleTokenCheck = useCallback(() => {
     if (localStorage.getItem('jwt')) {
       mainApi
-        .getUserInfo()
-        .then((user) => {
-          if (user.data._id) {
-            setCurrentUser(user.data);
-            setIsLoggedIn(true);
-          }
-        })
-        .catch((err) => {
-          setIsLoggedIn(false);
-          console.log(err);
-        });
+      .getUserInfo()
+      .then((user) => {
+        if (user.data._id) {
+          setCurrentUser(user.data);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        setIsLoggedIn(false);
+        console.log(err);
+      });
     }
-  };
+  }, [mainApi]);
+  
+  useEffect(() => {
+    handleTokenCheck();
+  }, [handleTokenCheck, isLoggedIn]);
 
   const hahdleSubmitSearch = () => {
     const storage = localStorage.getItem('combinedMoviesArray');
