@@ -69,7 +69,7 @@ const App = () => {
     }
     return Promise.all([moviesApi.getInitialMovies(), mainApi.getMovies()])
       .then(([initialMovies, savedMovies]) => {
-        const combinedMoviesArray = initialMovies.map(
+        const combinedMoviesArray: SavedMovieType[] = initialMovies.map(
           (initialMovie: BitfilmMovieType<BitfilmImageType>) => {
             const savedMovie = savedMovies.data.find(
               (savedMovieItem: SavedMovieType) => {
@@ -237,6 +237,7 @@ const App = () => {
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
                   setCombinedMoviesArray={setCombinedMoviesArray}
+                  combinedMoviesArray={combinedMoviesArray}
                   serverResponceError={serverResponceError}
                 />
               }

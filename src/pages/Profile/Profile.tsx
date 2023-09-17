@@ -1,7 +1,7 @@
 import './Profile.css';
 import Header from '../../components/ui/Header/Header';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
-import { useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useEffect } from 'react';
 import { EMAIL_REGEX, EMAIL_TITLE_TEXT } from '../../utils/constants';
@@ -18,7 +18,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileP
     handleSignOut();
   };
 
-  const handleSubmit = (e: React.FormEvent <HTMLInputElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = values.name;
     const email = values.email;
@@ -35,7 +35,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileP
     if (currentUser !== null && values.email === currentUser.email && values.name === currentUser.name) {
       return setIsValid(false);
     }
-  }, [values, currentUser]);
+  }, [values, currentUser, setIsValid]);
 
   useEffect(() => {
     setErrorMessage('');
@@ -49,7 +49,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileP
     setValues((prevState) => {
       return { ...prevState, name: currentUser!.name, email: currentUser!.email };
     });
-  }, [currentUser]);
+  }, [currentUser, setValues]);
 
   const handleFocus = () => {
     setSuccessMessage('');

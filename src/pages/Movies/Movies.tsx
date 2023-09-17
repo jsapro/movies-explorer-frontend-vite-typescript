@@ -1,11 +1,11 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect, ChangeEvent, useCallback } from 'react';
 import './Movies.css';
 import Header from '../../components/ui/Header/Header';
 import Footer from '../../components/ui/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { filterMovies } from '../../utils/constants';
-import type {MoviesProps, MoviesConfigType} from './types';
+import type { MoviesProps, MoviesConfigType } from './types';
 import type { SavedMovieType } from '../../utils/types';
 
 const Movies = ({
@@ -15,38 +15,46 @@ const Movies = ({
   onSearch,
   serverResponceError,
   isLoggedIn,
+  combinedMoviesArray,
 }: MoviesProps) => {
   const [isShortMovies, setIsShortMovies] = useState(false);
-  const [filteredMoviesArray, setFilteredMoviesArray] = useState([]);
+  const [filteredMoviesArray, setFilteredMoviesArray] =
+    useState(combinedMoviesArray);
   const [searchString, setSearchString] = useState('');
   const [numberToRender, setNumberToRender] = useState(1);
   const [isHideButton, setIsHideButton] = useState(false);
 
-  useEffect(() => {
-    if (searchString !== '') {
-      handleSubmitSearch(searchString, isShortMovies);
-    }
-  }, [isShortMovies]);
+ 
 
   useEffect(() => {
     onSearch()
       .then((combinedMoviesArray) => {
         setCombinedMoviesArray(combinedMoviesArray);
-        const search = JSON.parse(localStorage.getItem('lastSearchString'));
-        const isShort = JSON.parse(localStorage.getItem('isShortMovies'));
-        const lastSearchResultArray = filterMovies(
-          combinedMoviesArray,
-          search,
-          isShort
-        );
-        setFilteredMoviesArray(lastSearchResultArray);
-        setSearchString(search);
-        setIsShortMovies(isShort);
+        const lastSearchStringStorage =
+          localStorage.getItem('lastSearchString');
+        const isShortMoviesStorage = localStorage.getItem('isShortMovies');
+        if (
+          lastSearchStringStorage &&
+          isShortMoviesStorage &&
+          JSON.parse(lastSearchStringStorage)?.length !== 0 &&
+          JSON.parse(isShortMoviesStorage)?.length !== 0
+        ) {
+          const search = JSON.parse(lastSearchStringStorage);
+          const isShort = JSON.parse(isShortMoviesStorage);
+          const lastSearchResultArray = filterMovies(
+            combinedMoviesArray,
+            search,
+            isShort
+          );
+          setFilteredMoviesArray(lastSearchResultArray);
+          setSearchString(search);
+          setIsShortMovies(isShort);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleSubmitSearch = (searchString: string, isShortMovies: boolean) => {
+  const handleSubmitSearch = useCallback( (searchString: string, isShortMovies: boolean) => {
     setSearchString(searchString);
     localStorage.setItem('lastSearchString', JSON.stringify(searchString));
     onSearch()
@@ -64,11 +72,18 @@ const Movies = ({
       .catch((err) => console.log(err));
 
     return filteredMoviesArray;
-  };
+  },[]);
 
-  const handleCheckBox = (e) => {
-    setIsShortMovies(e.target.checked);
-    localStorage.setItem('isShortMovies', e.target.checked);
+  useEffect(() => {
+    if (searchString !== '') {
+      handleSubmitSearch(searchString, isShortMovies);
+    }
+  }, [handleSubmitSearch, isShortMovies, searchString]);
+
+  const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+    const isShort = e.target.checked;
+    setIsShortMovies(isShort);
+    localStorage.setItem('isShortMovies', JSON.stringify(isShort));
   };
 
   useEffect(() => {
@@ -97,7 +112,7 @@ const Movies = ({
     return {
       numberOnStart: 8,
       numberToAdd: 2,
-    }; 
+    };
   };
 
   useEffect(() => {

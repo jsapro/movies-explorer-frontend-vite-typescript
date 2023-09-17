@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useCallback } from 'react';
 import './SavedMovies.css';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Header from '../../components/ui/Header/Header';
@@ -16,7 +16,7 @@ const SavedMovies = ({
   isLoggedIn,
 }: SavedMoviesProps) => {
   const [isShortMovies, setIsShortMovies] = useState(false);
-  const [filteredMoviesArray, setFilteredMoviesArray] = useState([]);
+  const [filteredMoviesArray, setFilteredMoviesArray] = useState(combinedMoviesArray);
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
@@ -27,27 +27,27 @@ const SavedMovies = ({
       .catch((err) => console.log(err));
   }, []);
 
+  const handleSubmitSearch = useCallback(
+    (searchString: string, isShortMovies: boolean): SavedMovieType[] => {
+      setSearchString(searchString);
+      const onlySavedMoviesArray = combinedMoviesArray.filter(
+        (movie: SavedMovieType) => movie._id !== ''
+      );
+      const filteredMoviesArray = filterMovies(
+        onlySavedMoviesArray,
+        searchString,
+        isShortMovies
+      );
+      setFilteredMoviesArray(filteredMoviesArray);
+      return filteredMoviesArray;
+    },
+    [combinedMoviesArray]
+  );
+
   useEffect(() => {
     handleSubmitSearch(searchString, isShortMovies);
-  }, [isShortMovies, combinedMoviesArray]);
-
-  const handleSubmitSearch = (
-    searchString: string,
-    isShortMovies: boolean
-  ): SavedMovieType => {
-    setSearchString(searchString);
-    const onlySavedMoviesArray = combinedMoviesArray.filter(
-      (movie: SavedMovieType) => movie._id !== ''
-    );
-    const filteredMoviesArray = filterMovies(
-      onlySavedMoviesArray,
-      searchString,
-      isShortMovies
-    );
-    setFilteredMoviesArray(filteredMoviesArray);
-    return filteredMoviesArray;
-  };
-
+  }, [isShortMovies, combinedMoviesArray, handleSubmitSearch, searchString]);
+  
   const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
     setIsShortMovies(e.target.checked);
   };

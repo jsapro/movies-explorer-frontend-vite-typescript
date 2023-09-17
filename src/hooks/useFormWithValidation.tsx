@@ -1,37 +1,48 @@
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+
+type initialValueType = {
+  name: string;
+  email: string;
+  password: string;
+  searchInput: string;
+};
+
+type initialErrorType = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 const useFormWithValidation = () => {
-  const [values, setValues] = useState<
-    Record<'name' | 'email' | 'password' | 'searchInput', string> | Record<string, never>
-  >({});
-  const [errors, setErrors] = useState<
-    Record<'name' | 'email' | 'password', string> | Record<string, never>
-  >({});
+  const [values, setValues] = useState<initialValueType>({
+    name: '',
+    email: '',
+    password: '',
+    searchInput: '',
+  });
+  const [errors, setErrors] = useState<initialErrorType>({
+    name: '',
+    email: '',
+    password: '',
+  });
   const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.target.value;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: event.target.validationMessage });
-    setIsValid(event.target.closest('form').checkValidity());
+    if (event.target.closest('form') !== null) {
+      const formElement = event.target.closest('form');
+      setIsValid(formElement!.checkValidity());
+    }
   };
-
-  const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = false) => {
-      setValues(newValues);
-      setErrors(newErrors);
-      setIsValid(newIsValid);
-    },
-    [setValues, setErrors, setIsValid]
-  );
 
   return {
     values,
     handleChange,
     errors,
     isValid,
-    resetForm,
     setIsValid,
     setValues,
   };

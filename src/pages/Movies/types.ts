@@ -6,7 +6,8 @@ interface MoviesProps {
   setCombinedMoviesArray: React.Dispatch<
     React.SetStateAction<[] | SavedMovieType[]>
   >;
-  onSearch: () => Promise<void>;
+  combinedMoviesArray: SavedMovieType[];
+  onSearch: () => Promise<SavedMovieType[]>;
   serverResponceError: string;
   isLoggedIn: boolean;
 }
