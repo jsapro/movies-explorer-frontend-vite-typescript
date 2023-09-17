@@ -2,18 +2,9 @@ import { SavedMovieType } from './types';
 
 class MainApi {
   private _baseUrl: string;
-  private _defaultHeaders: { 'Content-Type': string };
-  private _authHeaders: { Authorization: string; 'Content-Type': string };
   
   constructor(baseUrl: string) {
     this._baseUrl = baseUrl;
-    this._defaultHeaders = {
-      'Content-Type': 'application/json',
-    };
-    this._authHeaders = {
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      'Content-Type': 'application/json',
-    };
   }
 
   _checkResponse(res: Response) {
