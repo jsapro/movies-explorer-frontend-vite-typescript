@@ -31,7 +31,9 @@ const App = () => {
   const [combinedMoviesArray, setCombinedMoviesArray] = useState<
     [] | SavedMovieType[]
   >([]);
-  const [currentUser, setCurrentUser] = useState<CurrentUserContextType | Record<string, never>>({});
+  const [currentUser, setCurrentUser] = useState<
+    CurrentUserContextType | Record<string, never>
+  >({});
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwt'));
   const [serverResponceError, setServerResponceError] = useState<string | ''>(
     ''
@@ -67,28 +69,30 @@ const App = () => {
     }
     return Promise.all([moviesApi.getInitialMovies(), mainApi.getMovies()])
       .then(([initialMovies, savedMovies]) => {
-        const combinedMoviesArray = (
-          initialMovies as (Omit<BitfilmMovieType, 'image'> & {
-            image: string | BitfilmImageType;
-          })[]
-        ).map((initialMovie) => {
-          const savedMovie = savedMovies.data.find(
-            (savedMovieItem: SavedMovieType) => {
-              return savedMovieItem.movieId === initialMovie.id;
-            }
+        const combinedMoviesArray = initialMovies.map(
+          (initialMovie: BitfilmMovieType<BitfilmImageType>) => {
+            const savedMovie = savedMovies.data.find(
+              (savedMovieItem: SavedMovieType) => {
+                return savedMovieItem.movieId === initialMovie.id;
+              }
             );
-            
-            initialMovie.thumbnail = BASIC_MOVIES_URL + initialMovie.image.formats.thumbnail.url;
-            initialMovie.image = BASIC_MOVIES_URL + initialMovie.image.url;
-  
+            const thumbnail =
+              BASIC_MOVIES_URL + initialMovie.image.formats.thumbnail.url;
+            const image = BASIC_MOVIES_URL + initialMovie.image.url;
+
+            const resultArray = initialMovie as unknown as BitfilmMovieType<string>;
+            resultArray.thumbnail = thumbnail;
+            resultArray.image = image;
+
             if (savedMovie !== undefined) {
-              initialMovie._id = savedMovie._id;
+              resultArray._id = savedMovie._id;
             } else {
-              initialMovie._id = '';
+              resultArray._id = '';
             }
-  
-            return initialMovie;
-        });
+
+            return resultArray;
+          }
+        );
         localStorage.setItem(
           'combinedMoviesArray',
           JSON.stringify(combinedMoviesArray)
@@ -269,12 +273,3 @@ const App = () => {
 };
 
 export default App;
-
-enum Test {
-  aaa = 'default',
-  bbb = 'primary',
-}
-
-Object.values(Test)[0]
-
-Test.bbb
