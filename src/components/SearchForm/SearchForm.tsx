@@ -16,13 +16,13 @@ const SearchForm = ({ onSearch, onCheck, isShortMovies, searchString }: SearchFo
     setValues((prevState) => {
       return { ...prevState, searchInput: searchString };
     });
-  }, [searchString]);
+  }, [searchString, setValues]);
 
-  useEffect(() => {
-    setValues((prevState) => {
-      return { ...prevState, searchInput: searchString };
-    });
-  }, []);
+  // useEffect(() => {
+  //   setValues((prevState) => {
+  //     return { ...prevState, searchInput: searchString };
+  //   });
+  // }, []);
 
   return (
     <section className='search-form'>
