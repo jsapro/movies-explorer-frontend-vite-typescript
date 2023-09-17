@@ -107,7 +107,7 @@ const Profile = ({ handleSignOut, isLoggedIn, onUpdateUser, isLocked }: ProfileP
                   className='profile__submit-btn'
                   type='submit'
                   onClick={() => {}}
-                  disabled={!isValid || errorMessage || isLocked}
+                  disabled={!isValid || !!errorMessage || isLocked}
                 >
                   Сохранить
                 </button>
