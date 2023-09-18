@@ -1,0 +1,137 @@
+.movies-card {
+  list-style: none;
+  background-color: #202020;
+  padding: 38px 0 0;
+  position: relative;
+}
+
+.movies-card__img-container {
+  line-height: 0;
+  position: relative;
+  width: 100%;
+}
+
+.movies-card__img {
+  box-sizing: border-box;
+  border-radius: 7px;
+  object-fit: cover;
+  width: 100%;
+  min-height: 168px;
+  aspect-ratio: 1.784;
+}
+
+.movies-card__img_inactive {
+  display: none;
+}
+
+.movies-card__link {
+  font-size: 0;
+}
+
+.movies-card__btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  height: 21px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.movies-card__btn_type_normal {
+  background: #313131;
+  border-radius: 30px;
+  width: 72px;
+}
+
+.movies-card__btn_type_normal:before {
+  position: relative;
+  content: 'Сохранить';
+  color: #fff;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 9px;
+  top: -2px;
+}
+
+.movies-card__btn_type_active {
+  background-image: url('../../assets/images/saved-btn.svg');
+  width: 21px;
+}
+
+.movies-card__btn_type_collection {
+  background-image: url('../../assets/images/collection-btn.svg');
+  width: 21px;
+}
+
+.movies-card__caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.movies-card__name {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.movies-card__duration {
+  margin: 0;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 10px;
+  border-radius: 3px;
+  background: #2f2f2f;
+  padding: 3px 9px;
+}
+
+@media all and (min-width: 768px) {
+  .movies-card {
+    padding: 47px 0 0;
+  }
+
+  .movies-card__img {
+    min-height: 190px;
+  }
+
+  .movies-card__name {
+    font-size: 13px;
+  }
+
+  .movies-card__caption {
+    padding-top: 25px;
+  }
+
+  .movies-card__btn {
+    top: 14px;
+    right: 14px;
+  }
+}
+
+@media all and (min-width: 1280px) {
+  .movies-card {
+    padding: 60px 0 0;
+  }
+
+  .movies-card__img {
+    min-height: 201px;
+  }
+
+  .movies-card__caption {
+    padding-top: 10px;
+  }
+
+  .movies-card__name {
+    margin-left: 14px;
+  }
+
+  .movies-card__duration {
+    margin-right: 14px;
+    padding: 5px 9px;
+  }
+}

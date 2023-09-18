@@ -1,0 +1,106 @@
+.footer {
+  padding: 79px 10px 20px;
+}
+
+.footer__title {
+  margin: 0;
+  padding: 0 0 21px 0;
+  border-bottom: 1px solid #424242;
+  color: #8b8b8b;
+  text-align: center;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer__outer-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer__inner-container {
+  padding: 25px 0 30px 0;
+}
+
+.footer__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer__item:not(:last-of-type) {
+  padding-bottom: 10px;
+}
+
+.footer__copyright {
+  margin: 0;
+  color: #8b8b8b;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media all and (min-width: 768px) {
+  .footer {
+    padding: 80px 30px 20px;
+  }
+
+  .footer__title {
+    font-size: 13px;
+    padding: 0 0 20px 0;
+  }
+
+  .footer__outer-container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 0 0;
+  }
+
+  .footer__list {
+    flex-direction: row;
+  }
+
+  .footer__copyright {
+    color: #fff;
+    font-size: 13px;
+  }
+
+  .footer__inner-container {
+    padding: 0;
+  }
+
+  .footer__item:not(:last-of-type) {
+    padding-bottom: 0;
+    padding-right: 20px;
+  }
+
+  .footer__link {
+    font-size: 13px;
+    font-style: normal;
+  }
+}
+
+@media all and (min-width: 1280px) {
+  .footer {
+    padding: 69px 70px 20px;
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+}
